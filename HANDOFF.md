@@ -1,0 +1,85 @@
+# Schwab-Py Skills Handoff
+
+Last Updated Local: 2026-05-11 12:41 PDT
+Last Updated UTC: 2026-05-11T19:41:39Z
+Stale After Hours: 24
+Staleness: FRESH
+
+## Project
+
+- Path: repo root for this checkout, for example
+  `%USERPROFILE%\Codex_Projects\schwab-py-skills` on Windows.
+- Git: initialized on branch `master`
+- Purpose: Codex-first Schwab skills and local Python utilities using `schwab-py`
+  directly, not Schwab MCP.
+
+## Current State
+
+- Repo scaffold created with Python package under `src/schwab_py_skills`.
+- Editable package installed locally with `python -m pip install -e .[dev]`.
+- Market-data, portfolio, order, token, and bounded streaming commands are
+  implemented.
+- Codex-level user documentation is available at `docs/CODEX_SKILL_USAGE.md`.
+- Deeper order strategy examples are available at `docs/ORDER_STRATEGY_EXAMPLES.md`.
+- Local skill deployment docs are available at `docs/DEPLOYMENT.md`, with
+  inventory in `SKILLS_INVENTORY.md`.
+- `scripts\build_strategy_order.py` builds bracket, vertical, iron condor,
+  straddle, strangle, and covered-call dry-run JSON.
+- `scripts\deploy-skills.ps1` deploys project skills to the local Codex skill
+  directory. Dry-run validation passed; global deployment has not been executed.
+- Documentation and code avoid hard-coded user-specific `C:\Users\<name>` paths.
+  Use `%USERPROFILE%`, `$env:USERPROFILE`, or repo-relative paths instead.
+- Live read-only smoke checks passed for `get_quotes.py AAPL MSFT`,
+  `stream_quotes.py --symbols AAPL MSFT --duration 3 --fields bid-price ask-price last-price`,
+  `stream_quotes.py --service account-activity --duration 1`, and `token_info.py`.
+- Project skills live under `.codex/skills`.
+- Setup utility is vendored locally as `python -m schwab_py_skills.setup_env`.
+- Order workflows are dry-run-first and require explicit confirmation for live
+  place/cancel/replace.
+- `SCHWAB_TOKEN_PATH` is required and preserved exactly as user configuration.
+
+## Validation
+
+Run after changes:
+
+```powershell
+python -m compileall src scripts tests
+python -m pytest
+python -m ruff check .
+```
+
+Last full validation: passed on 2026-05-11 12:36 PDT.
+
+## Resume Steps
+
+1. Verify repo state:
+   ```powershell
+   git status --short
+   ```
+2. Re-run validation commands above.
+3. For live readiness, inspect environment:
+   ```powershell
+   python -m schwab_py_skills.setup_env --show
+   python scripts\check_auth.py
+   ```
+4. Optional: deploy skills globally after review:
+   ```powershell
+   pwsh -ExecutionPolicy Bypass -File .\scripts\deploy-skills.ps1
+   ```
+
+## Open Risks
+
+- Live order mutation has not been exercised; preview before any placement.
+- Advanced order payloads should be previewed with Schwab before placement.
+
+## Change Log
+
+- 2026-05-11: Implemented planned market, portfolio, order, token, and streaming
+  code; validation and live read-only smoke checks passed.
+- 2026-05-11: Added comprehensive Codex-level usage documentation for all
+  project skills.
+- 2026-05-11: Added executable strategy-order examples plus local Codex skill
+  deployment tooling and inventory.
+- 2026-05-11: Replaced hard-coded user-specific Windows paths in docs and
+  handoff with current-user or repo-relative references.
+- 2026-05-11: Initial scaffold for schwab-py Codex skills library; validation passed.

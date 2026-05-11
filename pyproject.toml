@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "schwab-py-skills"
+version = "0.1.0"
+description = "Codex skills and local Python utilities for schwab-py workflows."
+requires-python = ">=3.10"
+dependencies = [
+  "httpx>=0.27",
+  "packaging>=23",
+  "schwab-py==1.5.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "ruff>=0.4",
+]
+
+[project.scripts]
+schwab-skills-setup = "schwab_py_skills.setup_env:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

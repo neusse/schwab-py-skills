@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# Runtime output
+order_history/
+order_templates/local/
+*.local.json
+
+# Never track Schwab credentials or tokens.
+token*.json
+token*.txt
+*.token
+.env
