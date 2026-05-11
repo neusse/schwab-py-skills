@@ -1,7 +1,7 @@
 # Schwab-Py Skills Handoff
 
-Last Updated Local: 2026-05-11 12:41 PDT
-Last Updated UTC: 2026-05-11T19:41:39Z
+Last Updated Local: 2026-05-11 12:44 PDT
+Last Updated UTC: 2026-05-11T19:44:55Z
 Stale After Hours: 24
 Staleness: FRESH
 
@@ -10,6 +10,8 @@ Staleness: FRESH
 - Path: repo root for this checkout, for example
   `%USERPROFILE%\Codex_Projects\schwab-py-skills` on Windows.
 - Git: initialized on branch `master`
+- Remote: `https://github.com/neusse/schwab-py-skills`
+- Published visibility: public
 - Purpose: Codex-first Schwab skills and local Python utilities using `schwab-py`
   directly, not Schwab MCP.
 
@@ -29,6 +31,7 @@ Staleness: FRESH
   directory. Dry-run validation passed; global deployment has not been executed.
 - Documentation and code avoid hard-coded user-specific `C:\Users\<name>` paths.
   Use `%USERPROFILE%`, `$env:USERPROFILE`, or repo-relative paths instead.
+- Initial public push completed on `master` at commit `7996eb6`.
 - Live read-only smoke checks passed for `get_quotes.py AAPL MSFT`,
   `stream_quotes.py --symbols AAPL MSFT --duration 3 --fields bid-price ask-price last-price`,
   `stream_quotes.py --service account-activity --duration 1`, and `token_info.py`.
@@ -82,4 +85,6 @@ Last full validation: passed on 2026-05-11 12:36 PDT.
   deployment tooling and inventory.
 - 2026-05-11: Replaced hard-coded user-specific Windows paths in docs and
   handoff with current-user or repo-relative references.
+- 2026-05-11: Published repo publicly to GitHub at
+  `https://github.com/neusse/schwab-py-skills`.
 - 2026-05-11: Initial scaffold for schwab-py Codex skills library; validation passed.
