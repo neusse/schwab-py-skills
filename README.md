@@ -1,4 +1,19 @@
-# Schwab-Py Codex Skills
+<p align="center">
+  <img src="docs/assets/schwab-py-skills-banner.svg" alt="Schwab-Py Codex Skills banner" width="100%">
+</p>
+
+<h1 align="center">Schwab-Py Codex Skills</h1>
+
+<p align="center">
+  Direct Schwab market data, portfolio, order, and streaming workflows for Codex without an MCP server.
+</p>
+
+<p align="center">
+  <img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img alt="schwab-py 1.5.1" src="https://img.shields.io/badge/schwab--py-1.5.1-00A3E0?style=for-the-badge">
+  <img alt="Codex skills" src="https://img.shields.io/badge/Codex-Skills-111827?style=for-the-badge">
+  <img alt="Dry-run first" src="https://img.shields.io/badge/Orders-Dry--Run%20First-F59E0B?style=for-the-badge">
+</p>
 
 Codex-first skills and local Python utilities for working with Schwab through
 [`schwab-py`](https://schwab-py.readthedocs.io/en/latest/). This repo is designed
