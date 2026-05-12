@@ -15,16 +15,69 @@
   <img alt="Dry-run first" src="https://img.shields.io/badge/Orders-Dry--Run%20First-F59E0B?style=for-the-badge">
 </p>
 
-Codex-first skills and local Python utilities for working with Schwab through
-[`schwab-py`](https://schwab-py.readthedocs.io/en/latest/). This repo is designed
-to avoid Schwab MCP usage for normal workflows and keep token use low by giving
-Codex direct, repeatable commands.
+This is a Codex skills library first. It ships real `.codex/skills/*/SKILL.md`
+workflows that tell Codex how to use `schwab-py` directly for Schwab market data,
+portfolio, order, and streaming tasks without routing normal work through a
+Schwab MCP server. The Python package and scripts in this repo are the local
+execution layer those skills call.
 
-## Install
+## Available Codex Skills
+
+Project skills live under `.codex/skills/<skill-name>/SKILL.md`. Open Codex in
+this repo and start a prompt with the skill name, such as
+`/schwab-market-data get a quote for AAPL and MSFT`.
+
+| Skill | What It Enables Codex To Do | Example Prompts |
+| --- | --- | --- |
+| `schwab-setup` | Inspect and configure Schwab environment variables, validate `SCHWAB_TOKEN_PATH`, and preserve user-owned token configuration. | `/schwab-setup show my Schwab environment readiness` |
+| `schwab-auth-client` | Create or validate a `schwab-py` client, check token status and age, verify token-file presence, and confirm account-hash readiness. | `/schwab-auth-client check auth` |
+| `schwab-market-data` | Fetch quotes, multi-quotes, price history bars, option chains, option expirations, instruments, fundamentals, movers, and market hours. | `/schwab-market-data show the AAPL option chain near the money` |
+| `schwab-portfolio` | Retrieve account hashes, balances, positions, transactions, linked-account summaries, order history, and account-combined position views. | `/schwab-portfolio show me a table of all my positions of all accounts combined` |
+| `schwab-orders` | Build dry-run-first equity, option, spread, bracket, OCO, trigger, and strategy order JSON; preview, place, cancel, replace, and extract order IDs with explicit live-order safeguards. | `/schwab-orders show me a bracket order JSON for AAPL 1 share with normal risk stops` |
+| `schwab-streaming` | Run bounded Schwab streaming workflows for level-one quotes, option quotes, chart data, level-two books, screeners, and account activity. | `/schwab-streaming AAPL MSFT` |
+
+## How Codex Uses These Skills
+
+When a user invokes one of the `/schwab-*` skills, Codex should load the matching
+repo-local `SKILL.md`, run the relevant Python script or module from this repo,
+and format the result for the requested task.
+
+Use the skill prompt as the user interface:
+
+```text
+/schwab-market-data get a quote for AAPL and MSFT
+/schwab-market-data get a quote for AAPL and MSFT show last price and fundamentals in a table
+/schwab-market-data show the AAPL option chain near the money and save the full result to AAPL_Opt.csv
+/schwab-portfolio show me a table of all my positions of all accounts combined
+/schwab-orders show me a bracket order JSON for AAPL 1 share with normal risk stops
+/schwab-auth-client show token status
+/schwab-streaming AAPL MSFT
+```
+
+Codex behavior should be task-shaped:
+
+- If the user asks for full JSON, return the raw command output.
+- If the user asks for a table or comparison, extract the relevant fields and
+  keep enough source detail to answer follow-ups.
+- If the workflow writes a file, report the exact local filename and what was
+  saved.
+- If a live order mutation is requested, require the explicit confirmation flag
+  described in the order skill and scripts.
+
+For complete Codex-level behavior, examples, output shapes, and safety rules,
+see [docs/CODEX_SKILL_USAGE.md](docs/CODEX_SKILL_USAGE.md). For local skill
+deployment, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). For the installed
+skill inventory, see [SKILLS_INVENTORY.md](SKILLS_INVENTORY.md).
+
+## Install Python Support Code
 
 ```powershell
 python -m pip install -e .[dev]
 ```
+
+The editable Python package is support code for the Codex skills. Installing it
+lets the repo-local `SKILL.md` workflows call `python -m schwab_py_skills...` and
+the scripts under `scripts\`.
 
 ## Required Environment
 
@@ -49,40 +102,6 @@ python -m schwab_py_skills.setup_env --show
 python -m schwab_py_skills.setup_env
 ```
 
-## Skills
-
-Project skills live under `.codex/skills/`:
-
-- `schwab-setup` - inspect and configure Schwab environment variables.
-- `schwab-auth-client` - validate token/client/account-hash readiness.
-- `schwab-market-data` - quotes, price history, option chains, instruments, fundamentals, movers, and hours.
-- `schwab-portfolio` - account hashes, balances, positions, transactions, and order history.
-- `schwab-orders` - dry-run-first order building, previewing, placing, canceling, replacing, and order ID extraction.
-- `schwab-streaming` - streaming quote, chart, book, screener, and account activity workflows.
-
-For Codex-level user instructions, examples, expected behavior, output shapes,
-and safety rules, see [docs/CODEX_SKILL_USAGE.md](docs/CODEX_SKILL_USAGE.md).
-For deeper order examples, see [docs/ORDER_STRATEGY_EXAMPLES.md](docs/ORDER_STRATEGY_EXAMPLES.md).
-For local skill deployment, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
-
-## Using These As Codex Skills
-
-Open Codex in this repo and invoke the skill by name at the start of the prompt:
-
-```text
-/schwab-market-data get a quote for AAPL and MSFT
-/schwab-market-data get a quote for AAPL and MSFT show last price and fundamentals in a table
-/schwab-portfolio show me a table of all my positions of all accounts combined
-/schwab-orders show me a bracket order JSON for AAPL 1 share with normal risk stops
-/schwab-streaming AAPL MSFT
-```
-
-Codex should load the matching `.codex/skills/<skill-name>/SKILL.md`, run the
-repo-local script, then format the result for the user. When the user asks for
-full JSON, Codex should return the raw command output. When the user asks for a
-table or comparison, Codex should extract the relevant fields and keep enough
-source detail to answer follow-ups.
-
 ## Order Safety
 
 Order commands build and print JSON by default. Live mutation requires explicit
@@ -99,7 +118,9 @@ an order:
 python scripts\preview_order.py --order-file order.json --account-hash HASH
 ```
 
-## Examples
+For deeper order examples, see [docs/ORDER_STRATEGY_EXAMPLES.md](docs/ORDER_STRATEGY_EXAMPLES.md).
+
+## Python Utility Examples
 
 ```powershell
 python scripts\check_auth.py

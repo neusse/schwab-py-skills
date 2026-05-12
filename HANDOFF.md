@@ -1,7 +1,7 @@
 # Schwab-Py Skills Handoff
 
-Last Updated Local: 2026-05-11 12:47 PDT
-Last Updated UTC: 2026-05-11T19:47:30Z
+Last Updated Local: 2026-05-12 07:47 PDT
+Last Updated UTC: 2026-05-12T14:47:43Z
 Stale After Hours: 24
 Staleness: FRESH
 
@@ -27,6 +27,8 @@ Staleness: FRESH
   inventory in `SKILLS_INVENTORY.md`.
 - README has a repo-local SVG hero banner at
   `docs/assets/schwab-py-skills-banner.svg`.
+- README now leads with the Codex skills catalog, capability table, and
+  `/schwab-*` usage model before Python package installation details.
 - `scripts\build_strategy_order.py` builds bracket, vertical, iron condor,
   straddle, strangle, and covered-call dry-run JSON.
 - `scripts\deploy-skills.ps1` deploys project skills to the local Codex skill
@@ -90,4 +92,6 @@ Last full validation: passed on 2026-05-11 12:47 PDT.
 - 2026-05-11: Published repo publicly to GitHub at
   `https://github.com/neusse/schwab-py-skills`.
 - 2026-05-11: Added README hero banner and badge section.
+- 2026-05-12: Updated README to present the repo as a Codex skills library first,
+  with skill capabilities and example `/schwab-*` prompts before Python usage.
 - 2026-05-11: Initial scaffold for schwab-py Codex skills library; validation passed.
