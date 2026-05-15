@@ -92,6 +92,24 @@ Open `http://127.0.0.1:8777`, then stop it with:
 powershell.exe -ExecutionPolicy Bypass -File .\demos\schwab-codex-ops-console\stop-demo.ps1
 ```
 
+### Live Demo: Read-Only Schwab Data
+
+There is also a live version for local use. It keeps the same console idea, but
+the browser calls a small read-only Python server that uses `schwab-py-skills`
+for real quotes, 5-day price history, and option-chain context. It still does
+not allow trading: the live demo exposes no preview, place, cancel, or replace
+routes.
+
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File .\demos\schwab-codex-live-demo\start-demo.ps1
+```
+
+Open `http://127.0.0.1:8778`, then stop it with:
+
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File .\demos\schwab-codex-live-demo\stop-demo.ps1
+```
+
 ## Install Python Support Code
 
 ```powershell

@@ -1,7 +1,7 @@
 # Schwab-Py Skills Handoff
 
-Last Updated Local: 2026-05-15 10:35 PDT
-Last Updated UTC: 2026-05-15T17:35:19Z
+Last Updated Local: 2026-05-15 13:31 PDT
+Last Updated UTC: 2026-05-15T20:31:51Z
 Stale After Hours: 24
 Staleness: FRESH
 
@@ -48,13 +48,16 @@ Staleness: FRESH
   time, and estimated refresh-token expiration time. The refresh estimate is
   derived from Schwab token creation time plus seven days because the token file
   does not store a separate refresh-token expiration field.
-- Current working tree has an untracked `charts/` directory that is not part of
-  the token-status update.
+- `charts/MSFT_120d_daily_bars.png` is included as a tracked chart artifact.
 - A static browser demo now lives at
   `demos/schwab-codex-ops-console`. It presents a simulated Codex trading ops
   console with charting, alert triage, options context, decision reasoning, and
   dry-run order planning. Start it with:
   `powershell.exe -ExecutionPolicy Bypass -File .\demos\schwab-codex-ops-console\start-demo.ps1`.
+- A read-only live demo now lives at `demos/schwab-codex-live-demo`. It serves a
+  local browser UI on port `8778` and backs `/api/context?symbol=AAPL` with real
+  `schwab-py-skills` quote, 5-day history, and option-chain calls. The live demo
+  does not expose order preview, place, cancel, or replace routes.
 
 ## Validation
 
@@ -66,7 +69,7 @@ python -m pytest
 python -m ruff check .
 ```
 
-Last full validation: passed on 2026-05-15 10:35 PDT.
+Last full validation: passed on 2026-05-15 13:31 PDT.
 
 ## Resume Steps
 
@@ -92,6 +95,8 @@ Last full validation: passed on 2026-05-15 10:35 PDT.
 
 ## Change Log
 
+- 2026-05-15: Added a separate read-only live demo backed by real
+  `schwab-py-skills` market-data calls and local dry-run JSON generation.
 - 2026-05-15: Added the static Schwab Codex Ops Console demo with Windows
   start/stop scripts, README launch instructions, and root README visibility.
 - 2026-05-14: Added datetime-rich token status output for access-token and

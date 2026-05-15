@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Schwab Codex Live Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="rail" aria-label="Workspace navigation">
+        <div class="mark">SC</div>
+        <button class="railButton active" data-view="overview" title="Overview">O</button>
+        <button class="railButton" data-view="alerts" title="Alerts">!</button>
+        <button class="railButton" data-view="options" title="Options">V</button>
+        <button class="railButton" data-view="orders" title="Dry-run orders">D</button>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">schwab-py-skills live demo</p>
+            <h1>Codex Live Trading Ops</h1>
+          </div>
+          <div class="statusCluster" aria-label="Session status">
+            <span class="pulse"></span>
+            <span>Read-only Schwab connection</span>
+            <strong id="clock">--:--:--</strong>
+          </div>
+        </header>
+
+        <section class="heroGrid" aria-label="Market overview">
+          <div class="marketPanel">
+            <div class="panelHeader">
+              <div>
+                <p class="label">Primary symbol</p>
+                <h2 id="symbolName">Loading</h2>
+              </div>
+              <div class="priceBlock">
+                <span id="lastPrice">$--</span>
+                <small id="priceChange">--</small>
+              </div>
+            </div>
+            <canvas id="priceChart" width="980" height="420" aria-label="Intraday price chart"></canvas>
+            <div class="chartLegend">
+              <span><i class="dot green"></i> VWAP reclaim</span>
+              <span><i class="dot amber"></i> Alert threshold</span>
+              <span><i class="dot red"></i> Risk stop</span>
+            </div>
+          </div>
+
+          <div class="decisionPanel">
+            <p class="label">Codex decision brief</p>
+            <h2 id="decisionTitle">Connecting to Schwab</h2>
+            <p id="decisionBody">
+              Fetching live quote, 5-day price history, and option chain through
+              schwab-py-skills. This demo is read-only and exposes no trading route.
+            </p>
+            <div class="scoreRow">
+              <div><span id="confidence">live</span><small>source</small></div>
+              <div><span id="riskScore">--</span><small>risk</small></div>
+              <div><span id="timeWindow">--</span><small>stance</small></div>
+            </div>
+            <button id="explainButton" class="primaryButton">Explain decision</button>
+          </div>
+        </section>
+
+        <section class="controlStrip" aria-label="Scenario controls">
+          <div>
+            <p class="label">Live symbol</p>
+            <div class="segments" role="tablist" aria-label="Live symbol">
+              <button class="segment active" data-symbol="AAPL">AAPL</button>
+              <button class="segment" data-symbol="TSLA">TSLA</button>
+              <button class="segment" data-symbol="MSFT">MSFT</button>
+            </div>
+          </div>
+          <div class="tickerTape" id="tickerTape" aria-label="Symbol tape"></div>
+        </section>
+
+        <section class="opsGrid">
+          <section class="signalPane" aria-label="Alert triage">
+            <div class="sectionHeader">
+              <div>
+                <p class="label">Alert triage</p>
+                <h2>Ranked by actionability</h2>
+              </div>
+              <span id="alertCount">4 active</span>
+            </div>
+            <div id="alerts" class="alerts"></div>
+          </section>
+
+          <section class="optionPane" aria-label="Option chain summary">
+            <div class="sectionHeader">
+              <div>
+                <p class="label">Options intelligence</p>
+                <h2>Near-money chain</h2>
+              </div>
+              <span>nearest</span>
+            </div>
+            <div id="optionsTable" class="optionTable"></div>
+          </section>
+        </section>
+
+        <section class="planArea" aria-label="Order plan and Codex prompts">
+          <div class="planCopy">
+            <p class="label">Dry-run order plan</p>
+            <h2 id="planTitle">Dry-run order example</h2>
+            <p id="planText">
+              The live demo may generate local dry-run JSON examples, but the server has
+              no preview, place, cancel, or replace endpoint.
+            </p>
+          </div>
+          <pre id="orderPlan" class="codeBlock"></pre>
+          <div class="promptStack">
+            <p class="label">Repeat in Codex</p>
+            <button class="copyPrompt" data-prompt="/schwab-market-data get AAPL quote, 5-day price history, option chain near the money, and summarize trade context">
+              Market context prompt
+            </button>
+            <button class="copyPrompt" data-prompt="/schwab-streaming stream AAPL quotes for 60 seconds and alert if price crosses VWAP with rising volume">
+              Streaming alert prompt
+            </button>
+            <button class="copyPrompt" data-prompt="/schwab-orders build a dry-run bracket order for AAPL using the latest quote, 2 percent stop, and 4 percent target">
+              Dry-run order prompt
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="explainDrawer" class="drawer" aria-hidden="true">
+      <button id="closeDrawer" class="closeButton" title="Close">x</button>
+      <p class="label">Codex reasoning trace</p>
+      <h2>How the decision was formed</h2>
+      <ol id="reasoningList"></ol>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite">Prompt copied</div>
+    <script src="app.js"></script>
+  </body>
+</html>
