@@ -80,7 +80,9 @@ Example requests:
 Expected Codex behavior:
 
 - Run `python scripts\check_auth.py` for live account-number readiness.
-- Run `python scripts\token_info.py` for token file status.
+- Run `python scripts\token_info.py` for token file status, including token
+  creation time, access-token expiration time, and estimated refresh-token
+  expiration time.
 - If setup fails, route back to `schwab-setup`.
 - Summarize token status without exposing access or refresh tokens.
 

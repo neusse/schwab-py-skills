@@ -1,7 +1,7 @@
 # Schwab-Py Skills Handoff
 
-Last Updated Local: 2026-05-12 07:47 PDT
-Last Updated UTC: 2026-05-12T14:47:43Z
+Last Updated Local: 2026-05-14 19:07 PDT
+Last Updated UTC: 2026-05-15T02:07:02Z
 Stale After Hours: 24
 Staleness: FRESH
 
@@ -44,6 +44,12 @@ Staleness: FRESH
 - Order workflows are dry-run-first and require explicit confirmation for live
   place/cancel/replace.
 - `SCHWAB_TOKEN_PATH` is required and preserved exactly as user configuration.
+- Token status reporting now shows token creation time, access-token expiration
+  time, and estimated refresh-token expiration time. The refresh estimate is
+  derived from Schwab token creation time plus seven days because the token file
+  does not store a separate refresh-token expiration field.
+- Current working tree has an untracked `charts/` directory that is not part of
+  the token-status update.
 
 ## Validation
 
@@ -55,7 +61,7 @@ python -m pytest
 python -m ruff check .
 ```
 
-Last full validation: passed on 2026-05-11 12:47 PDT.
+Last full validation: passed on 2026-05-14 19:07 PDT.
 
 ## Resume Steps
 
@@ -81,6 +87,9 @@ Last full validation: passed on 2026-05-11 12:47 PDT.
 
 ## Change Log
 
+- 2026-05-14: Added datetime-rich token status output for access-token and
+  estimated refresh-token lifecycle reporting, plus regression coverage and
+  Codex usage documentation.
 - 2026-05-11: Implemented planned market, portfolio, order, token, and streaming
   code; validation and live read-only smoke checks passed.
 - 2026-05-11: Added comprehensive Codex-level usage documentation for all
