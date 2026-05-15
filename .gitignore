@@ -11,6 +11,8 @@ dist/
 order_history/
 order_templates/local/
 *.local.json
+.demo-server.pid
+.demo-server.port
 
 # Never track Schwab credentials or tokens.
 token*.json

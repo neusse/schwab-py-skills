@@ -1,0 +1,660 @@
+:root {
+  color-scheme: light;
+  --paper: #f4f1ea;
+  --ink: #151515;
+  --muted: #6e6a61;
+  --line: rgba(21, 21, 21, 0.14);
+  --green: #1a8f68;
+  --red: #b94a48;
+  --amber: #c9891e;
+  --steel: #416172;
+  --night: #10151a;
+  --white: #fffdf8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.shell {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
+.rail {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  background: var(--night);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 12px;
+}
+
+.mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.railButton {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.64);
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.railButton:hover,
+.railButton.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.workspace {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topbar,
+.panelHeader,
+.sectionHeader,
+.controlStrip,
+.planArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.topbar {
+  min-height: 70px;
+}
+
+.eyebrow,
+.label {
+  margin: 0 0 5px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(30px, 5vw, 58px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+h2 {
+  font-size: clamp(18px, 2vw, 28px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.statusCluster {
+  min-width: 284px;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.statusCluster strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(26, 143, 104, 0.45);
+  animation: pulse 1.7s infinite;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 0.8fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.marketPanel,
+.decisionPanel,
+.signalPane,
+.optionPane,
+.planArea {
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.marketPanel {
+  padding: 22px;
+}
+
+.decisionPanel {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 22px;
+  background: var(--night);
+  color: var(--white);
+}
+
+.decisionPanel .label {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+#decisionBody {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+.priceBlock {
+  text-align: right;
+}
+
+.priceBlock span {
+  display: block;
+  font-size: clamp(34px, 5vw, 70px);
+  font-weight: 850;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.priceBlock small {
+  color: var(--green);
+  font-weight: 800;
+}
+
+canvas {
+  width: 100%;
+  height: 390px;
+  display: block;
+  margin-top: 18px;
+}
+
+.chartLegend,
+.scoreRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  display: inline-block;
+  margin-right: 7px;
+}
+
+.green {
+  background: var(--green);
+}
+
+.amber {
+  background: var(--amber);
+}
+
+.red {
+  background: var(--red);
+}
+
+.scoreRow {
+  color: rgba(255, 255, 255, 0.68);
+  justify-content: space-between;
+}
+
+.scoreRow div {
+  min-width: 72px;
+}
+
+.scoreRow span {
+  display: block;
+  color: var(--white);
+  font-size: 30px;
+  font-weight: 850;
+}
+
+.scoreRow small {
+  display: block;
+  margin-top: 3px;
+}
+
+.primaryButton,
+.segment,
+.copyPrompt,
+.closeButton {
+  border: 0;
+  cursor: pointer;
+}
+
+.primaryButton {
+  height: 44px;
+  color: var(--night);
+  background: var(--white);
+  font-weight: 850;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+.primaryButton:hover,
+.copyPrompt:hover {
+  transform: translateY(-2px);
+}
+
+.controlStrip {
+  min-height: 74px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 253, 248, 0.74);
+}
+
+.segments {
+  display: inline-flex;
+  border: 1px solid var(--line);
+}
+
+.segment {
+  min-width: 92px;
+  height: 38px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.segment.active {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.tickerTape {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.tapeItem {
+  min-width: 98px;
+  padding: 8px 10px;
+  border-left: 3px solid var(--line);
+  background: var(--white);
+  font-size: 12px;
+  transform: translateY(12px);
+  opacity: 0;
+  animation: riseIn 460ms ease forwards;
+}
+
+.tapeItem strong {
+  display: block;
+}
+
+.tapeItem.up {
+  border-color: var(--green);
+}
+
+.tapeItem.down {
+  border-color: var(--red);
+}
+
+.opsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+  gap: 20px;
+}
+
+.signalPane,
+.optionPane {
+  padding: 20px;
+}
+
+.sectionHeader span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.alerts {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.alertRow {
+  display: grid;
+  grid-template-columns: 86px 1fr 90px;
+  gap: 14px;
+  align-items: center;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+  transition:
+    background 180ms ease,
+    padding 180ms ease;
+}
+
+.alertRow:hover {
+  background: rgba(26, 143, 104, 0.06);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  height: 28px;
+  color: var(--white);
+  background: var(--steel);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.badge.high {
+  background: var(--red);
+}
+
+.badge.medium {
+  background: var(--amber);
+}
+
+.alertTitle {
+  font-weight: 850;
+}
+
+.alertMeta,
+.optionMeta {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.confidence {
+  text-align: right;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.optionTable {
+  margin-top: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.optionRow {
+  display: grid;
+  grid-template-columns: 64px 1fr 1fr;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.optionRow.header {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.optionCell strong {
+  display: block;
+}
+
+.planArea {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(300px, 1fr) minmax(230px, 0.7fr);
+  padding: 22px;
+}
+
+.planCopy p:last-child {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.codeBlock {
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+  color: #e7f7ef;
+  background: var(--night);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.promptStack {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.copyPrompt {
+  min-height: 46px;
+  padding: 10px 12px;
+  background: var(--ink);
+  color: var(--white);
+  text-align: left;
+  font-weight: 800;
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.copyPrompt:hover {
+  background: var(--green);
+}
+
+.drawer {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: min(460px, calc(100vw - 40px));
+  max-height: calc(100svh - 40px);
+  overflow: auto;
+  padding: 24px;
+  background: var(--night);
+  color: var(--white);
+  transform: translateY(24px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 220ms ease,
+    opacity 220ms ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+.drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer .label {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.drawer ol {
+  padding-left: 20px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+}
+
+.drawer li {
+  margin: 12px 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  font-size: 22px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  translate: -50% 24px;
+  opacity: 0;
+  padding: 10px 14px;
+  background: var(--ink);
+  color: var(--white);
+  font-weight: 800;
+  transition:
+    translate 180ms ease,
+    opacity 180ms ease;
+}
+
+.toast.show {
+  translate: -50% 0;
+  opacity: 1;
+}
+
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 12px rgba(26, 143, 104, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 143, 104, 0);
+  }
+}
+
+@keyframes riseIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1050px) {
+  .heroGrid,
+  .opsGrid,
+  .planArea {
+    grid-template-columns: 1fr;
+  }
+
+  .tickerTape {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .rail {
+    position: static;
+    height: 58px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .railButton {
+    width: 38px;
+    height: 38px;
+  }
+
+  .workspace {
+    padding: 14px;
+  }
+
+  .topbar,
+  .controlStrip,
+  .panelHeader,
+  .sectionHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .statusCluster {
+    min-width: 0;
+    justify-content: flex-start;
+  }
+
+  canvas {
+    height: 270px;
+  }
+
+  .alertRow,
+  .optionRow {
+    grid-template-columns: 1fr;
+  }
+
+  .confidence {
+    text-align: left;
+  }
+
+  .segments {
+    width: 100%;
+  }
+
+  .segment {
+    flex: 1;
+    min-width: 0;
+  }
+}

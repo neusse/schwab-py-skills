@@ -69,6 +69,29 @@ see [docs/CODEX_SKILL_USAGE.md](docs/CODEX_SKILL_USAGE.md). For local skill
 deployment, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). For the installed
 skill inventory, see [SKILLS_INVENTORY.md](SKILLS_INVENTORY.md).
 
+## Demo: Codex Trading Ops Console
+
+Want to see what this looks like when Codex is doing more than fetching JSON?
+Launch the browser demo. It turns Schwab-shaped market data into a trading-desk
+style ops console with an animated price chart, scenario toggles, alert triage,
+near-money option context, a Codex reasoning drawer, and dry-run order planning.
+
+The demo is safe to share and easy to run: it uses synthetic sample data, does
+not require Schwab credentials, and never touches live order endpoints. It is
+meant to show the bigger idea behind these skills: Codex can combine data
+access, interpretation, risk framing, and repeatable prompts into one working
+decision surface.
+
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File .\demos\schwab-codex-ops-console\start-demo.ps1
+```
+
+Open `http://127.0.0.1:8777`, then stop it with:
+
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File .\demos\schwab-codex-ops-console\stop-demo.ps1
+```
+
 ## Install Python Support Code
 
 ```powershell
