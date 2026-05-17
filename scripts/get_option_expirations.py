@@ -5,6 +5,7 @@ import json
 
 import _path  # noqa: F401
 from schwab_py_skills.client import create_client, response_json
+from schwab_py_skills.market import get_option_expirations
 
 
 def main() -> int:
@@ -12,7 +13,7 @@ def main() -> int:
     parser.add_argument("symbol")
     args = parser.parse_args()
 
-    print(json.dumps(response_json(create_client().get_option_expiration_chain(args.symbol)), indent=2))
+    print(json.dumps(response_json(get_option_expirations(create_client(), args.symbol)), indent=2))
     return 0
 
 

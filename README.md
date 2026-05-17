@@ -187,6 +187,16 @@ python scripts\stream_quotes.py --symbols AAPL MSFT --duration 30 --fields bid-p
 python scripts\stream_quotes.py --service account-activity --duration 30
 ```
 
+The same option-expiration endpoint is available from the package wrapper when
+you are writing a Python workflow:
+
+```python
+from schwab_py_skills.client import create_client
+from schwab_py_skills.market import get_option_expirations
+
+response = get_option_expirations(create_client(), "AAPL")
+```
+
 Live order maintenance commands:
 
 ```powershell

@@ -69,6 +69,10 @@ def get_option_chain(
     return client.get_option_chain(symbol, **kwargs)
 
 
+def get_option_expirations(client: Any, symbol: str) -> Any:
+    return client.get_option_expiration_chain(symbol)
+
+
 def get_instruments(client: Any, symbols: list[str], projection: str) -> Any:
     return client.get_instruments(symbols, enum_value(Client.Instrument.Projection, projection))
 

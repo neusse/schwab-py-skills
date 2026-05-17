@@ -114,6 +114,7 @@ Common commands:
 python scripts\get_quotes.py AAPL MSFT --fields quote fundamental
 python scripts\get_price_history.py AAPL --period-type day --period one-day --frequency-type minute --frequency every-minute
 python scripts\get_option_chain.py AAPL --contract-type call --strike-count 10 --include-underlying-quote
+python scripts\get_option_expirations.py AAPL
 python scripts\get_instruments.py AAPL --projection fundamental
 python scripts\get_market_hours.py --markets equity option
 python scripts\get_movers.py --index spx --sort-order percent-change-up --frequency five
